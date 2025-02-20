@@ -14,5 +14,4 @@ variable "environment" {
   type        = string
   default     = "dev"
   description = "The environment for the resources in this example."
-  
 }

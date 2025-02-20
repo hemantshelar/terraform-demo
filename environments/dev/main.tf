@@ -1,9 +1,14 @@
 
 module "ResourceGroup" {
-  source = "./ResourceGroup"
+  source = "../../modules/ResourceGroup"
   location = "Australia East"
   rg-prefix = "rg"
   project-name = "tfdemo"
   location-prefix = "aee"
   env-prefix = "dev"
+}
+
+module "AppService" {
+  source = "../../modules/AppService"
+  app_service_plan_name = "test"
 }

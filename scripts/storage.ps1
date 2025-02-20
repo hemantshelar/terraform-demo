@@ -1,5 +1,5 @@
-$env:RESOURCE_GROUP_NAME='tfstate'
-$env:STORAGE_ACCOUNT_NAME='tfdemo0506'
+$env:RESOURCE_GROUP_NAME='rg-tfstate'
+$env:STORAGE_ACCOUNT_NAME='hftfstate'
 $env:CONTAINER_NAME='tfstate'
 
 # Create resource group
@@ -12,5 +12,5 @@ az storage account create --resource-group $env:RESOURCE_GROUP_NAME --name $env:
 az storage container create --name $env:CONTAINER_NAME --account-name $env:STORAGE_ACCOUNT_NAME
 
 # This account key will be used by Terraform to authenticate
-$ACCOUNT_KEY=$(az storage account keys list --resource-group tfstate --account-name tfdemo0506 --query '[0].value' -o tsv)
+$ACCOUNT_KEY=$(az storage account keys list --resource-group $env:RESOURCE_GROUP_NAME --account-name  $env:STORAGE_ACCOUNT_NAME  --query '[0].value' -o tsv)
 $env:ARM_ACCESS_KEY=$ACCOUNT_KEY
