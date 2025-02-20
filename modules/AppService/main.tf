@@ -19,8 +19,13 @@ resource "azurerm_linux_web_app" "example" {
     type = "SystemAssigned"
   }
 
+    connection_string {
+        name  = "Database"
+        type  = "MySql"
+        value = "Server=myServerAddress;Database=myDataBase;Uid=myUsername;Pwd=myPassword;"
+    }
   site_config {
-    always_on = false    
+    always_on = false 
     application_stack {
         dotnet_version = "8.0"
     }

@@ -12,3 +12,8 @@ module "AppService" {
   source = "../../modules/AppService"
   app_service_plan_name = "test"
 }
+
+module "StorageAccount" {
+  source = "../../modules/StorageAccount"
+  storage_name = "strgdevtfdemoaae" 
+}
