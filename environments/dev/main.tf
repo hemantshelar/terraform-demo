@@ -18,3 +18,8 @@ module "StorageAccount" {
   storage_name = "strgdevtfdemoaae" 
 }
 
+
+module "UserAssignedMI" {
+  source = "../../modules/UserAssignedMI"
+}
+
