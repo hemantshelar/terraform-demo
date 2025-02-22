@@ -30,3 +30,7 @@ module "UserAssignedMI" {
   depends_on = [ module.ResourceGroup.ResourceGroup ]
 }
 
+module "KeyVault" {
+  source = "../../modules/KeyVault"
+  depends_on = [ module.ResourceGroup.ResourceGroup, module.UserAssignedMI ]
+}
