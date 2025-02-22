@@ -3,3 +3,8 @@ variable "app_service_plan_name" {
   type        = string
 }
 
+variable "uami_principal_id" {
+  type = string
+  default = ""
+}
+

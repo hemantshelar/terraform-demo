@@ -11,15 +11,22 @@ module "ResourceGroup" {
 module "AppService" {
   source = "../../modules/AppService"
   app_service_plan_name = "test"
+  uami_principal_id = module.UserAssignedMI.UserAssignedMI
+  depends_on = [ 
+    module.ResourceGroup.ResourceGroup, 
+    module.UserAssignedMI 
+  ]
 }
 
 module "StorageAccount" {
   source = "../../modules/StorageAccount"
-  storage_name = "strgdevtfdemoaae" 
+  storage_name = "strgdevtfdemoaae"
+  depends_on = [ module.ResourceGroup.ResourceGroup ]
 }
 
 
 module "UserAssignedMI" {
   source = "../../modules/UserAssignedMI"
+  depends_on = [ module.ResourceGroup.ResourceGroup ]
 }
 
