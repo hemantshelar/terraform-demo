@@ -24,3 +24,7 @@ provider "azurerm" {
     }
   }
 }
+
+provider "azuread" {
+  # Configuration options
+}

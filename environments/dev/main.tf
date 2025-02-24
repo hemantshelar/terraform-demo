@@ -34,3 +34,7 @@ module "KeyVault" {
   source = "../../modules/KeyVault"
   depends_on = [ module.ResourceGroup.ResourceGroup, module.UserAssignedMI ]
 }
+
+module "EntraId" {
+  source = "../../modules/EntraId"
+}
