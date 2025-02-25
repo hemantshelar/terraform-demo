@@ -44,6 +44,12 @@ module "LAW" {
   depends_on = [ module.ResourceGroup]
 }
 
+module "AppInsight" {
+ source = "../../modules/AppInsight" 
+ law_id = module.LAW.log_analytics_workspace_id
+ depends_on = [ module.LAW ]
+}
+
 
 
 
