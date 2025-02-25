@@ -13,7 +13,7 @@ module "AppService" {
   app_service_plan_name = "test"
   uami_principal_id = module.UserAssignedMI.UserAssignedMI
   depends_on = [ 
-    module.ResourceGroup.ResourceGroup, 
+    module.ResourceGroup, 
     module.UserAssignedMI 
   ]
 }
@@ -21,20 +21,36 @@ module "AppService" {
 module "StorageAccount" {
   source = "../../modules/StorageAccount"
   storage_name = "strgdevtfdemoaae"
-  depends_on = [ module.ResourceGroup.ResourceGroup ]
+  depends_on = [ module.ResourceGroup ]
 }
 
 
 module "UserAssignedMI" {
   source = "../../modules/UserAssignedMI"
-  depends_on = [ module.ResourceGroup.ResourceGroup ]
+  depends_on = [ module.ResourceGroup]
 }
 
 module "KeyVault" {
   source = "../../modules/KeyVault"
-  depends_on = [ module.ResourceGroup.ResourceGroup, module.UserAssignedMI ]
+  depends_on = [ module.ResourceGroup, module.UserAssignedMI ]
 }
 
 module "EntraId" {
   source = "../../modules/EntraId"
 }
+
+module "LAW" {
+  source = "../../modules/LAW"
+  depends_on = [ module.ResourceGroup]
+}
+
+
+
+
+
+
+
+
+
+
+
