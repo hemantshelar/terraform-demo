@@ -10,10 +10,10 @@ terraform {
     }
   }
   backend "azurerm" {
-      resource_group_name  = "rg-tfstate"
-      storage_account_name = "hftfstate"
-      container_name       = "tfstate"
-      key                  = "tfdemo.dev.tfstate"
+    resource_group_name  = "rg-tfstate"
+    storage_account_name = "hftfstate"
+    container_name       = "tfstate"
+    key                  = "tfdemo.dev.tfstate"
   }
 }
 
@@ -21,6 +21,9 @@ provider "azurerm" {
   features {
     resource_group {
       prevent_deletion_if_contains_resources = false
+    }
+    key_vault {
+      purge_soft_delete_on_destroy = false #Fix for : Key valut taking long time to delete KV
     }
   }
 }

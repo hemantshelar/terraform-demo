@@ -1,16 +1,19 @@
 #https://learn.microsoft.com/en-us/azure/key-vault/keys/quick-create-terraform?tabs=azure-cli
 data "azurerm_client_config" "current" {}
+module "common" {
+  source = "../common"
+}
 
 resource "azurerm_key_vault" "kv" {
-  name                        = "kv-dev-tfdemo-aae"
-  location                    = "australiaeast" 
-  resource_group_name         = "rg-dev-tfdemo-aee"
+  name                        = "kv-${module.common.env}-${module.common.tla}-${module.common.location-suffix}"
+  location                    = "${module.common.rg-location}" 
+  resource_group_name         = "${module.common.rgname}"
   enabled_for_disk_encryption = true
   tenant_id                   = data.azurerm_client_config.current.tenant_id
   soft_delete_retention_days  = 7
   purge_protection_enabled    = false
   enable_rbac_authorization = true
-
+  
   sku_name = "standard"
 
   access_policy {
