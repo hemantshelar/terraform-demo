@@ -16,6 +16,7 @@ module "AppService" {
   location-suffix       = "aae"
   rgname                = "rg-uat-tfdemo-aae"
   rg-location           = "australiaeast"
+  environment           = "UAT"
   app_service_plan_name = "test"
   uami_principal_id     = module.UserAssignedMI.UserAssignedMI
   depends_on = [
@@ -31,7 +32,7 @@ module "StorageAccount" {
   location-suffix = "aae"
   rgname          = "rg-uat-tfdemo-aae"
   rg-location     = "australiaeast"
-  storage_name    = "strguattfdemoaae"
+  environment     = "UAT"
   depends_on      = [module.ResourceGroup]
 }
 
@@ -43,6 +44,7 @@ module "UserAssignedMI" {
   location-suffix = "aae"
   rgname          = "rg-uat-tfdemo-aae"
   rg-location     = "australiaeast"
+  environment     = "UAT"
   depends_on      = [module.ResourceGroup]
 }
 
@@ -53,6 +55,7 @@ module "KeyVault" {
   location-suffix = "aae"
   rgname          = "rg-uat-tfdemo-aae"
   rg-location     = "australiaeast"
+  environment     = "UAT"
   depends_on      = [module.ResourceGroup, module.UserAssignedMI]
 }
 
@@ -62,6 +65,7 @@ module "EntraId" {
   tla             = "tfdemo"
   location-suffix = "aae"
   rgname          = "rg-uat-tfdemo-aae"
+  environment     = "UAT"
   rg-location     = "australiaeast"
 }
 
@@ -72,6 +76,7 @@ module "LAW" {
   location-suffix = "aae"
   rgname          = "rg-uat-tfdemo-aae"
   rg-location     = "australiaeast"
+  environment     = "UAT"
   depends_on      = [module.ResourceGroup]
 }
 
@@ -82,6 +87,7 @@ module "AppInsight" {
   location-suffix = "aae"
   rgname          = "rg-uat-tfdemo-aae"
   rg-location     = "australiaeast"
+  environment     = "UAT"
   law_id          = module.LAW.log_analytics_workspace_id
   depends_on      = [module.ResourceGroup, module.LAW]
 }

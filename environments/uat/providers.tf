@@ -13,7 +13,7 @@ terraform {
     resource_group_name  = "rg-tfstate"
     storage_account_name = "hftfstate"
     container_name       = "tfstate"
-    key                  = "tfdemo.dev.tfstate"
+    key                  = "tfdemo.uat.tfstate"
   }
 }
 

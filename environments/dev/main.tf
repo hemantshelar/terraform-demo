@@ -16,7 +16,7 @@ module "AppService" {
   location-suffix       = "aae"
   rgname                = "rg-dev-tfdemo-aae"
   rg-location           = "australiaeast"
-  environment     = "Development"
+  environment           = "Development"
   app_service_plan_name = "test"
   uami_principal_id     = module.UserAssignedMI.UserAssignedMI
   depends_on = [
