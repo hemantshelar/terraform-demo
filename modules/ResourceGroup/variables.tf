@@ -1,23 +1,30 @@
-//rg-dev-tfdemo-aae
-variable "rg-prefix" {
-    type = string
-    description = "Prefix for rg"
+variable "env" {
+  description = "The environment name"
+  type        = string
+  default = "value"
 }
-variable "project-name" {
-    type = string
-    description = "Name of the project."
+
+variable "tla" {
+  description = "The project name"
+  type        = string
+  default = "value"
 }
-variable "env-prefix" {
-  type = string
-  description = "Prefix for env"
+
+variable "location-suffix" {
+  description = "The location suffix"
+  type        = string
+  default = "value"
 }
-variable "location-prefix" {
-    type = string
-    description = "Location prefix for all resources."
+
+variable "rgname" {
+  description = "The resource group name"
+  type        = string
+  default = "value"
 }
-variable "location" {
-    type = string
-    description = "location for all resources."
+variable "rg-location" {
+  description = "The resource group location"
+  type        = string
+  default = "value"
 }
 variable "environment" {
     type = string

@@ -1,12 +1,8 @@
 //asp-dev-tfdemo-aae
-module "common" {
-  source = "../common"
-}
-
 resource "azurerm_service_plan" "spdefault" {
-  name                = "asp-${module.common.env}-${module.common.tla}-${module.common.location-suffix}"
-  resource_group_name = "${module.common.rgname}"
-  location            = "${module.common.rg-location}"
+  name                = "asp-${var.env}-${var.tla}-${var.location-suffix}"
+  resource_group_name = "${var.rgname}"
+  location            = "${var.rg-location}"
   os_type             = "Linux"
   sku_name            = "F1"
 }
@@ -14,9 +10,9 @@ resource "azurerm_service_plan" "spdefault" {
 //webapp-dev-tfdemo-aae
 
 resource "azurerm_linux_web_app" "webapp" {
-  name                = "web-${module.common.env}-${module.common.tla}-${module.common.location-suffix}"
-  resource_group_name = "${module.common.rgname}"
-  location            = "${module.common.rg-location}" 
+  name                = "web-${var.env}-${var.tla}-${var.location-suffix}"
+  resource_group_name = "${var.rgname}"
+  location            = "${var.rg-location}" 
   service_plan_id     = azurerm_service_plan.spdefault.id
 
   identity {

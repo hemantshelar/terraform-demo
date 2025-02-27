@@ -1,22 +1,21 @@
 
 module "ResourceGroup" {
   source          = "../../modules/ResourceGroup"
-  env             = "dev"
+  env             = "uat"
   tla             = "tfdemo"
   location-suffix = "aae"
-  rgname          = "rg-dev-tfdemo-aae"
+  rgname          = "rg-uat-tfdemo-aae"
   rg-location     = "australiaeast"
-  environment     = "Development"
+  environment     = "UAT"
 }
 
 module "AppService" {
   source                = "../../modules/AppService"
-  env                   = "dev"
+  env                   = "uat"
   tla                   = "tfdemo"
   location-suffix       = "aae"
-  rgname                = "rg-dev-tfdemo-aae"
+  rgname                = "rg-uat-tfdemo-aae"
   rg-location           = "australiaeast"
-  environment     = "Development"
   app_service_plan_name = "test"
   uami_principal_id     = module.UserAssignedMI.UserAssignedMI
   depends_on = [
@@ -27,67 +26,62 @@ module "AppService" {
 
 module "StorageAccount" {
   source          = "../../modules/StorageAccount"
-  env             = "dev"
+  env             = "uat"
   tla             = "tfdemo"
   location-suffix = "aae"
-  rgname          = "rg-dev-tfdemo-aae"
+  rgname          = "rg-uat-tfdemo-aae"
   rg-location     = "australiaeast"
-  environment     = "Development"
+  storage_name    = "strguattfdemoaae"
   depends_on      = [module.ResourceGroup]
 }
 
 
 module "UserAssignedMI" {
   source          = "../../modules/UserAssignedMI"
-  env             = "dev"
+  env             = "uat"
   tla             = "tfdemo"
   location-suffix = "aae"
-  rgname          = "rg-dev-tfdemo-aae"
+  rgname          = "rg-uat-tfdemo-aae"
   rg-location     = "australiaeast"
-  environment     = "Development"
   depends_on      = [module.ResourceGroup]
 }
 
 module "KeyVault" {
   source          = "../../modules/KeyVault"
-  env             = "dev"
+  env             = "uat"
   tla             = "tfdemo"
   location-suffix = "aae"
-  rgname          = "rg-dev-tfdemo-aae"
+  rgname          = "rg-uat-tfdemo-aae"
   rg-location     = "australiaeast"
-  environment     = "Development"
   depends_on      = [module.ResourceGroup, module.UserAssignedMI]
 }
 
 module "EntraId" {
   source          = "../../modules/EntraId"
-  env             = "dev"
+  env             = "uat"
   tla             = "tfdemo"
   location-suffix = "aae"
-  rgname          = "rg-dev-tfdemo-aae"
-  environment     = "Development"
+  rgname          = "rg-uat-tfdemo-aae"
   rg-location     = "australiaeast"
 }
 
 module "LAW" {
   source          = "../../modules/LAW"
-  env             = "dev"
+  env             = "uat"
   tla             = "tfdemo"
   location-suffix = "aae"
-  rgname          = "rg-dev-tfdemo-aae"
+  rgname          = "rg-uat-tfdemo-aae"
   rg-location     = "australiaeast"
-  environment     = "Development"
   depends_on      = [module.ResourceGroup]
 }
 
 module "AppInsight" {
   source          = "../../modules/AppInsight"
-  env             = "dev"
+  env             = "uat"
   tla             = "tfdemo"
   location-suffix = "aae"
-  rgname          = "rg-dev-tfdemo-aae"
+  rgname          = "rg-uat-tfdemo-aae"
   rg-location     = "australiaeast"
-  environment     = "Development"
   law_id          = module.LAW.log_analytics_workspace_id
   depends_on      = [module.ResourceGroup, module.LAW]
 }
