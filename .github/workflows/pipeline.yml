@@ -13,8 +13,15 @@ jobs:
         - name: Checkout repository
           uses: actions/checkout@v2
 
-        - name: dir
-          run: ls -la
+        - name: Change directory
+          run: |
+            ls -la
+
+            cd environments/dev
+
+        - name: check dir
+          run: |
+            ls -la
 
         - name: Setup Terraform
           uses: hashicorp/setup-terraform@v1
