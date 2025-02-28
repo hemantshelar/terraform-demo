@@ -19,7 +19,8 @@ jobs:
 
             cd environments/dev
 
-        - name: check dir
+        - name: check dir after setting working-dir
+          working-directory: environments/dev
           run: |
             ls -la
 
