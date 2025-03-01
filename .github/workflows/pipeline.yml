@@ -27,6 +27,9 @@ jobs:
             export ARM_TENANT_ID="d71b85a1-bd52-4608-b997-4a1d5cd16f6a"
             export ARM_CLIENT_ID="${{secrets.CLIENT_ID}}"
             export ARM_CLIENT_SECRET="${{secrets.CLIENT_SECRET}}"
+        - name: Print env 
+          run: |
+            printenv
 
         - name: Setup Terraform
           uses: hashicorp/setup-terraform@v1
