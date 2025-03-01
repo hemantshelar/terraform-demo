@@ -23,10 +23,13 @@ jobs:
           working-directory: environments/dev
           run: |
             ls -la
+            echo "setting up env variables"
             export ARM_SUBSCRIPTION_ID="cffaa289-ca3b-4126-81da-eb8bc9ef39e9"
             export ARM_TENANT_ID="d71b85a1-bd52-4608-b997-4a1d5cd16f6a"
             export ARM_CLIENT_ID="${{secrets.CLIENT_ID}}"
             export ARM_CLIENT_SECRET="${{secrets.CLIENT_SECRET}}"
+            printenv
+            
         - name: Print env 
           run: |
             printenv
