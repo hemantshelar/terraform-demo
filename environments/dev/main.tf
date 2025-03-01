@@ -57,6 +57,7 @@ module "KeyVault" {
   rg-location     = "australiaeast"
   environment     = "Development"
   depends_on      = [module.ResourceGroup, module.UserAssignedMI]
+  umi             = module.UserAssignedMI.UserAssignedMI
 }
 
 module "EntraId" {

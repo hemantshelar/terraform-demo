@@ -30,3 +30,8 @@ variable "environment" {
   description = "The environment name"
   type        = string
 }
+
+variable "umi" {
+  description = "The user managed identity"
+  type        = string  
+}
