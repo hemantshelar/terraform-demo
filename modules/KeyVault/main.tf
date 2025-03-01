@@ -13,17 +13,17 @@ resource "azurerm_key_vault" "kv" {
   
   sku_name = "standard"
 
-  access_policy {
-    tenant_id = data.azurerm_client_config.current.tenant_id
-    object_id = data.azurerm_client_config.current.object_id
+  #access_policy {
+  #  tenant_id = data.azurerm_client_config.current.tenant_id
+  #  object_id = data.azurerm_client_config.current.object_id
 
-    key_permissions    = ["List", "Create", "Delete", "Get", "Purge", "Recover", "Update", "GetRotationPolicy", "SetRotationPolicy"]
-    secret_permissions = ["Set"]
-  }
+  #  key_permissions    = ["List", "Create", "Delete", "Get", "Purge", "Recover", "Update", "GetRotationPolicy", "SetRotationPolicy"]
+  #  secret_permissions = ["Set"]
+  #}
 }
 
-resource "azurerm_role_assignment" "kvra" {
-    scope                = azurerm_key_vault.kv.id
-    role_definition_name = "Key Vault Secrets Officer"
-    principal_id         = data.azurerm_client_config.current.object_id
-}
+#resource "azurerm_role_assignment" "kvra" {
+#    scope                = azurerm_key_vault.kv.id
+#    role_definition_name = "Key Vault Secrets Officer"
+#    principal_id         = data.azurerm_client_config.current.object_id
+#}
