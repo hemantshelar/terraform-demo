@@ -14,28 +14,15 @@ jobs:
         - name: Checkout repository
           uses: actions/checkout@v2
 
-        - name: Change directory
-          run: |
-            ls -la
-
-            cd environments/dev
-
         - name: check dir after setting working-dir
           working-directory: environments/dev
           run: |
-            ls -la
             echo "setting up env variables"
             echo "ARM_SUBSCRIPTION_ID=cffaa289-ca3b-4126-81da-eb8bc9ef39e9" >> $GITHUB_ENV
             echo "ARM_TENANT_ID=d71b85a1-bd52-4608-b997-4a1d5cd16f6a" >> $GITHUB_ENV
             echo "ARM_CLIENT_ID=${{secrets.CLIENT_ID}}" >> $GITHUB_ENV
             echo "ARM_CLIENT_SECRET=${{secrets.CLIENT_SECRET}}" >> $GITHUB_ENV
-           
-            printenv
             
-        - name: Print env 
-          run: |
-            printenv
-
         - name: Setup Terraform
           uses: hashicorp/setup-terraform@v1
          
@@ -49,6 +36,10 @@ jobs:
 
         - name: Terraform Plan
           working-directory: environments/dev
-          run: terraform plan
+          run:  terraform plan -out main.tfplan 
+
+        - name: Terraform Apply
+          working-directory: environments/dev
+          run: terraform apply main.tfplan
 
     
