@@ -49,15 +49,16 @@ module "UserAssignedMI" {
 }
 
 module "KeyVault" {
-  source          = "../../modules/KeyVault"
-  env             = "dev"
-  tla             = "tfdemo"
-  location-suffix = "aae"
-  rgname          = "rg-dev-tfdemo-aae"
-  rg-location     = "australiaeast"
-  environment     = "Development"
-  depends_on      = [module.ResourceGroup, module.UserAssignedMI]
-  umi             = module.UserAssignedMI.UserAssignedMI
+  source            = "../../modules/KeyVault"
+  env               = "dev"
+  tla               = "tfdemo"
+  location-suffix   = "aae"
+  rgname            = "rg-dev-tfdemo-aae"
+  rg-location       = "australiaeast"
+  environment       = "Development"
+  depends_on        = [module.ResourceGroup, module.UserAssignedMI]
+  umi               = module.UserAssignedMI.UserAssignedMI
+  uami_principal_id = module.UserAssignedMI.uami_principal_id
 }
 
 module "EntraId" {

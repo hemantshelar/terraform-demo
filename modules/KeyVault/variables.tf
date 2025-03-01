@@ -35,3 +35,8 @@ variable "umi" {
   description = "The user managed identity"
   type        = string  
 }
+
+variable "uami_principal_id" {
+  description = "The user managed identity principal id"
+  type        = string
+}
