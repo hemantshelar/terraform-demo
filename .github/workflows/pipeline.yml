@@ -9,6 +9,7 @@ on:
 jobs:
     build:
       runs-on: ubuntu-latest
+      environment: dev
       steps:
         - name: Checkout repository
           uses: actions/checkout@v2
@@ -28,8 +29,7 @@ jobs:
             echo "ARM_TENANT_ID=d71b85a1-bd52-4608-b997-4a1d5cd16f6a" >> $GITHUB_ENV
             echo "ARM_CLIENT_ID=${{secrets.CLIENT_ID}}" >> $GITHUB_ENV
             echo "ARM_CLIENT_SECRET=${{secrets.CLIENT_SECRET}}" >> $GITHUB_ENV
-            export ARM_CLIENT_ID=${{secrets.CLIENT_ID}}
-            export ARM_CLIENT_SECRET=${{secrets.CLIENT_SECRET}}
+           
             printenv
             
         - name: Print env 
