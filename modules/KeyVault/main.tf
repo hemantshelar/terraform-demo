@@ -27,3 +27,9 @@ resource "azurerm_key_vault" "kv" {
 #    role_definition_name = "Key Vault Secrets Officer"
 #    principal_id         = data.azurerm_client_config.current.object_id
 #}
+
+resource "azurerm_key_vault_secret" "kvsecret" {
+  name         = "example-secret"
+  value        = "example-value"
+  key_vault_id = azurerm_key_vault.kv.id
+}
