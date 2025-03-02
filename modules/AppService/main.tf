@@ -14,6 +14,7 @@ resource "azurerm_linux_web_app" "webapp" {
   resource_group_name = "${var.rgname}"
   location            = "${var.rg-location}" 
   service_plan_id     = azurerm_service_plan.spdefault.id
+  key_vault_reference_identity_id = var.uami_principal_id
 
   identity {
     type = "UserAssigned"
