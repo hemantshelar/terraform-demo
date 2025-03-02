@@ -29,7 +29,24 @@ export ARM_TENANT_ID="<azure_subscription_tenant_id>"
 export ARM_CLIENT_ID="<service_principal_appid>"
 export ARM_CLIENT_SECRET="<service_principal_password>"
 
-** TROUBLESHOOTING 
+
+In order to initialize a variable from environment variable, follow the steps
+- define a variable in variables.tf file.
+```
+variable "subscription_id" {
+  type        = string
+  description = "The Azure subscription ID."
+}
+```
+- export an environment variable with name TF_VAR_subscription_id
+```
+export TF_VAR_subscription_id="#########"
+```
+```
+$env:TF_VAR_subscription_id="#######"
+```
+
+**TROUBLESHOOTING**
 
 - Storage Account Name: "strguattfdemoaae"): unexpected status 409 (409 Conflict) with error: StorageAccountOperationInProgress: An operation is currently performing on this storage account that requires exclusive access.
 
