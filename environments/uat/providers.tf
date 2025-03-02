@@ -2,7 +2,7 @@ terraform {
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
-      version = "4.21.1"
+      version = "~>3.0"
     }
     random = {
       source  = "hashicorp/random"
@@ -13,12 +13,11 @@ terraform {
     resource_group_name  = "rg-tfstate"
     storage_account_name = "hftfstate"
     container_name       = "tfstate"
-    key                  = "tfdemo.dev.tfstate"
+    key                  = "tfdemo.uat.tfstate"
   }
 }
 
 provider "azurerm" {
-  subscription_id = "${var.subscription_id}"
   features {
     resource_group {
       prevent_deletion_if_contains_resources = false

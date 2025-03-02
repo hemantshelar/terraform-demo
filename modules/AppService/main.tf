@@ -1,8 +1,8 @@
 //asp-dev-tfdemo-aae
 resource "azurerm_service_plan" "spdefault" {
-  name                = "asp-dev-tfdemo-aae"
-  resource_group_name = "rg-dev-tfdemo-aee"
-  location            = "australia east"
+  name                = "asp-${var.env}-${var.tla}-${var.location-suffix}"
+  resource_group_name = "${var.rgname}"
+  location            = "${var.rg-location}"
   os_type             = "Linux"
   sku_name            = "F1"
 }
@@ -10,10 +10,11 @@ resource "azurerm_service_plan" "spdefault" {
 //webapp-dev-tfdemo-aae
 
 resource "azurerm_linux_web_app" "webapp" {
-  name                = "webapp-dev-tfdemo-aae"
-  resource_group_name = "rg-dev-tfdemo-aee"
-  location            = "australia east" 
+  name                = "web-${var.env}-${var.tla}-${var.location-suffix}"
+  resource_group_name = "${var.rgname}"
+  location            = "${var.rg-location}" 
   service_plan_id     = azurerm_service_plan.spdefault.id
+  key_vault_reference_identity_id = var.uami_principal_id
 
   identity {
     type = "UserAssigned"

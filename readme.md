@@ -2,8 +2,6 @@
 
 `az login`
 
- 
-
  terraform init --upgrade
  terraform init -reconfigure
 
@@ -18,69 +16,60 @@
 terraform apply main.destroy.tfplan
 
 
-[Module](https://www.youtube.com/watch?v=0YLPfSLbp9Y&list=PLnWpsLZNgHzVVslxs8Bwq19Ng0ff4XlFv&index=4) is a collection of files inside folder.
- - tf files
- - tf JSON files.
-What is root module.
- - files contaiing core module
 
- Variables are used to get informaiton into module.
- Data source to query list of data
- Local variable.
+[Github Action](https://www.youtube.com/watch?v=Ah17o_1bryo) to enable CI/CD.
 
 
+Follow [thi](https://learn.microsoft.com/en-us/azure/developer/terraform/authenticate-to-azure-with-service-principle?tabs=bash) article for creating service principal
+
+az ad sp create-for-rbac --name SPN_TERRAFORM_GLOBAL --role Contributor --scopes /subscriptions/cffaa289-ca3b-4126-81da-eb8bc9ef39e9
+
+export ARM_SUBSCRIPTION_ID="<azure_subscription_id>"
+export ARM_TENANT_ID="<azure_subscription_tenant_id>"
+export ARM_CLIENT_ID="<service_principal_appid>"
+export ARM_CLIENT_SECRET="<service_principal_password>"
 
 
-
-# Create a storage account 
-
-resource "azurerm_storage_account" "stg" {
-    name = "stgtestaccount555"
-    resource_group_name = azurerm_resource_group.rg.name
-    location = "${azurerm_resource_group.rg.location}"
-    account_tier = "Standard"
-    account_replication_type = "LRS"
-  
+In order to initialize a variable from environment variable, follow the steps. [Stack Overflow reference](https://stackoverflow.com/questions/36629367/getting-an-environment-variable-in-terraform-configuration)
+- define a variable in variables.tf file.
+```
+variable "subscription_id" {
+  type        = string
+  description = "The Azure subscription ID."
 }
+```
+- export an environment variable with name TF_VAR_subscription_id
+```
+export TF_VAR_subscription_id="#########"
+```
+```
+$env:TF_VAR_subscription_id="#######"
+```
 
-#Create service bus
+**TROUBLESHOOTING**
 
-resource "azurerm_servicebus_namespace" "sbns" {
-  name                = "${var.environment}-tfdemo-servicebus-namespace"
-  location            = "${var.resource_group_location}"
-  resource_group_name = azurerm_resource_group.rg.name 
-  sku                 = "Standard"
+- Storage Account Name: "strguattfdemoaae"): unexpected status 409 (409 Conflict) with error: StorageAccountOperationInProgress: An operation is currently performing on this storage account that requires exclusive access.
 
-  tags = {
-    source = "terraform"
-  }
-}
 
-#Create a queue
-resource "azurerm_servicebus_queue" "sbq" {
-  name         = "${var.environment}-tfdemo-servicebus-queue"
-  namespace_id = azurerm_servicebus_namespace.sbns.id
-  partitioning_enabled = true
-  dead_lettering_on_message_expiration = true
-  max_delivery_count = 7
-}
+Error: A resource with the ID "/subscriptions/cffaa289-ca3b-4126-81da-eb8bc9ef39e9/resourceGroups/rg-dev-tfdemo-aae/providers/Microsoft.Storage/storageAccounts/strgdevtfdemoaae" already exists - to be managed via Terraform this resource needs to be imported into the State. Please see the resource documentation for "azurerm_storage_account" for more information.
 
-#Create a topic
-resource "azurerm_servicebus_topic" "sbt" {
-  name         = "${var.environment}-tfdemo-servicebus-topic"
-  namespace_id = azurerm_servicebus_namespace.sbns.id
-}
 
-#Create a subscription
-resource "azurerm_servicebus_subscription" "ass" {
-  name               = "all_customers_subscription"
-  topic_id           = azurerm_servicebus_topic.sbt.id
-  max_delivery_count = 7
-}
-
-resource "azurerm_servicebus_subscription_rule" "assr" {
-  name            = "vip_customers_rule"
-  subscription_id = azurerm_servicebus_subscription.ass.id
-  filter_type     = "SqlFilter"
-  sql_filter      = "ID = 1"
-}
+rror: Creating user "usrdevtfdemo@NETORGFT17726763.onmicrosoft.com"
+│
+│   with module.EntraId.azuread_user.envuser,
+│   on ..\..\modules\EntraId\main.tf line 3, in resource "azuread_user" "envuser":
+│    3: resource "azuread_user" "envuser" {
+│
+│ unexpected status 403 (403 Forbidden) with error: Authorization_RequestDenied: Insufficient privileges to complete the operation.
+╵
+╷
+│ Error: Creating group "GRP-dev-tfdemo-contributors"
+│
+│   with module.EntraId.azuread_group.envcontributors,
+│   on ..\..\modules\EntraId\main.tf line 10, in resource "azuread_group" "envcontributors":
+│   10: resource "azuread_group" "envcontributors" {
+│
+│ unexpected status 403 (403 Forbidden) with error: Authorization_RequestDenied: Insufficient privileges to complete the operation.
+╵
+╷
+│ Error: authorization.RoleAssignmentsClient#Create: Failure responding to request: StatusCode=403 -- Original Error: autorest/azure: Service returned an error. Status=403 Code="AuthorizationFailed" Message="The client '3a298f38-722e-40dc-bc28-60d7063e7214' with object id '3a298f38-722e-40dc-bc28-60d7063e7214' does not have authorization to perform action 'Microsoft.Authorization/roleAssignments/write' over scope '/subscriptions/cffaa289-ca3b-4126-81da-eb8bc9ef39e9/resourceGroups/rg-dev-tfdemo-aae/providers/Microsoft.KeyVault/vaults/kv-dev-tfdemo-aae/providers/Microsoft.Authorization/roleAssignments/ea1195e5-16b1-fa8b-a2a4-e384b614ef18' or the scope is invalid. If access was recently granted, please refresh your credentials."

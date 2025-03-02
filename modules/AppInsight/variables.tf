@@ -1,5 +1,3 @@
-
-
 variable "env" {
   description = "The environment name"
   type        = string
@@ -28,7 +26,12 @@ variable "rg-location" {
   type        = string
   default = "value"
 }
+
 variable "environment" {
   description = "The environment name"
   type        = string
+}
+
+variable "law_id" {
+    description = "Log analytics workspace id."
 }
