@@ -30,7 +30,7 @@ export ARM_CLIENT_ID="<service_principal_appid>"
 export ARM_CLIENT_SECRET="<service_principal_password>"
 
 
-In order to initialize a variable from environment variable, follow the steps
+In order to initialize a variable from environment variable, follow the steps. [Stack Overflow reference](https://stackoverflow.com/questions/36629367/getting-an-environment-variable-in-terraform-configuration)
 - define a variable in variables.tf file.
 ```
 variable "subscription_id" {
