@@ -73,3 +73,8 @@ rror: Creating user "usrdevtfdemo@NETORGFT17726763.onmicrosoft.com"
 ╵
 ╷
 │ Error: authorization.RoleAssignmentsClient#Create: Failure responding to request: StatusCode=403 -- Original Error: autorest/azure: Service returned an error. Status=403 Code="AuthorizationFailed" Message="The client '3a298f38-722e-40dc-bc28-60d7063e7214' with object id '3a298f38-722e-40dc-bc28-60d7063e7214' does not have authorization to perform action 'Microsoft.Authorization/roleAssignments/write' over scope '/subscriptions/cffaa289-ca3b-4126-81da-eb8bc9ef39e9/resourceGroups/rg-dev-tfdemo-aae/providers/Microsoft.KeyVault/vaults/kv-dev-tfdemo-aae/providers/Microsoft.Authorization/roleAssignments/ea1195e5-16b1-fa8b-a2a4-e384b614ef18' or the scope is invalid. If access was recently granted, please refresh your credentials."
+
+- To solve above issue SPN was given a 'Owner' role for the subscription.
+
+Error locking state: Error acquiring the state lock: state blob is already locked
+[Break the lease](https://stackoverflow.com/questions/64690427/error-locking-state-error-acquiring-the-state-lock-state-blob-is-already-locke)
