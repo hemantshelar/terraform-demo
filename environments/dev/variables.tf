@@ -14,9 +14,14 @@ variable "environment" {
   type        = string
   default     = "dev"
   description = "The environment for the resources in this example."
+  validation {
+    condition     = can(contains(["dev", "test", "prod"], var.environment))
+    error_message = "The environment must be either dev, test, or prod."
+  }
 }
 
 variable "subscription_id" {
   type        = string
   description = "The Azure subscription ID."
+  sensitive = true
 }

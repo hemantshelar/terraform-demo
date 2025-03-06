@@ -1,11 +1,7 @@
-name: CI Pipeline for Infrastructure
+name: CI Pipeline to destroy Infrastructure
 
 on:
-  push:
-    branches:
-      - main
-      - feature/*
-
+  workflow_dispatch: 
 jobs:
     build:
       runs-on: ubuntu-latest
@@ -14,7 +10,7 @@ jobs:
         - name: Checkout repository
           uses: actions/checkout@v2
 
-        - name: check dir after setting working-dir
+        - name: Setup environment variables 
           working-directory: environments/dev
           run: |
             echo "setting up env variables"
@@ -29,18 +25,18 @@ jobs:
          
         - name: Terraform Init
           working-directory: environments/dev
-          run: terraform init
+          run: terraform init - update
 
-        - name: Terraform Validate
+        - name: Terraform Validate Distruction
           working-directory: environments/dev
           run: terraform validate
 
-        - name: Terraform Plan
+        - name: Terraform Plan Distruction 
           working-directory: environments/dev
-          run:  terraform plan -out main.tfplan 
+          run: terraform plan -destroy -out main.dev.destroy.tfplan 
 
-        - name: Terraform Apply
+        - name: Terraform Apply Distruction
           working-directory: environments/dev
-          run: terraform apply main.tfplan
+          run: terraform apply main.dev.destroy.tfplan
 
     
