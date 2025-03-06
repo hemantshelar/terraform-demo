@@ -1,4 +1,5 @@
 
+#Test trigger.
 resource "null_resource" "test_null" {
   provisioner "local-exec" {
     command = "echo ${var.subscription_id}"
